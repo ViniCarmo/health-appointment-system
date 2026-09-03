@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: scheduling-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/scheduling
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  flyway:
+    enabled: true
+
+server:
+  port: 8081
