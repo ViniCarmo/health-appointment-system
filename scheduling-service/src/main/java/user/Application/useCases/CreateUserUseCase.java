@@ -13,8 +13,8 @@ public class CreateUserUseCase {
     }
 
     public void execute(String email, String passwordHash, Role role, String name, String phoneNumber) {
-        if (userRepository.existsByEmail(email)) {
-            throw new IllegalArgumentException("Email already in use.");
+        if (userRepository.findByEmail(email).isPresent()) {
+            throw new IllegalArgumentException("User with email " + email + " already exists.");
         }
         userRepository.save(User.create(email, passwordHash, role, name, phoneNumber));
     }
