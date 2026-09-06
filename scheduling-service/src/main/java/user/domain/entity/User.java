@@ -6,21 +6,21 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 public class User {
     private final UUID id;
+    private String name;
     private String email;
     private String passwordHash;
     private final Role role;
-    private String name;
     private String phoneNumber;
     private final LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public User(UUID id, String email, String passwordHash, Role role, String name,
+    public User(UUID id, String email, String name, String passwordHash, Role role,
                 String phoneNumber, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.email = email;
+        this.name = name;
         this.passwordHash = passwordHash;
         this.role = role;
-        this.name = name;
         this.phoneNumber = phoneNumber;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -28,7 +28,7 @@ public class User {
 
     public static User create(String email, String passwordHash, Role role, String name, String phoneNumber) {
         LocalDateTime now = LocalDateTime.now();
-        return new User(UUID.randomUUID(), email, passwordHash, role, name, phoneNumber, now, now);
+        return new User(UUID.randomUUID(), email, name, passwordHash, role, phoneNumber, now, now);
     }
 
     public boolean isDoctor() { return role == Role.DOCTOR; }
