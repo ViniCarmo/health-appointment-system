@@ -1,6 +1,6 @@
-package medicalAppointment.domain.entity;
+package com.fiap.scheduling_service.medicalAppointment.domain.entity;
 
-import medicalAppointment.domain.enums.AppointmentStatus;
+import com.fiap.scheduling_service.medicalAppointment.domain.enums.AppointmentStatus;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

@@ -1,9 +1,9 @@
-package user.infrastructure.persistence;
+package com.fiap.scheduling_service.user.infrastructure.persistence;
 
 import org.springframework.stereotype.Component;
-import user.domain.entity.User;
-import user.domain.repository.UserRepository;
-import user.infrastructure.mapper.UserMapper;
+import com.fiap.scheduling_service.user.domain.entity.User;
+import com.fiap.scheduling_service.user.domain.repository.UserRepository;
+import com.fiap.scheduling_service.user.infrastructure.mapper.UserMapper;
 
 import java.util.Optional;
 import java.util.UUID;

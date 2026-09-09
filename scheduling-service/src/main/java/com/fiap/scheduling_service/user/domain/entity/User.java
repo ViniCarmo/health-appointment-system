@@ -1,6 +1,6 @@
-package user.domain.entity;
+package com.fiap.scheduling_service.user.domain.entity;
 
-import user.domain.enums.Role;
+import com.fiap.scheduling_service.user.domain.enums.Role;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

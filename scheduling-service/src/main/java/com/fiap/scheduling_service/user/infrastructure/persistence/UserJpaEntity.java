@@ -1,11 +1,11 @@
-package user.infrastructure.persistence;
+package com.fiap.scheduling_service.user.infrastructure.persistence;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import user.domain.enums.Role;
+import com.fiap.scheduling_service.user.domain.enums.Role;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

@@ -1,8 +1,8 @@
-package user.Application.useCases;
+package com.fiap.scheduling_service.user.Application.usecase;
 
-import user.domain.entity.User;
-import user.domain.enums.Role;
-import user.domain.repository.UserRepository;
+import com.fiap.scheduling_service.user.domain.entity.User;
+import com.fiap.scheduling_service.user.domain.enums.Role;
+import com.fiap.scheduling_service.user.domain.repository.UserRepository;
 
 public class CreateUserUseCase {
 

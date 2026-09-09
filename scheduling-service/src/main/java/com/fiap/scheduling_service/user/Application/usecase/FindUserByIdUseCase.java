@@ -1,15 +1,15 @@
-package user.Application.useCases;
+package com.fiap.scheduling_service.user.Application.usecase;
 
-import user.domain.entity.User;
-import user.domain.repository.UserRepository;
+import com.fiap.scheduling_service.user.domain.entity.User;
+import com.fiap.scheduling_service.user.domain.repository.UserRepository;
 
 import java.util.UUID;
 
-public class FindByIdUseCase {
+public class FindUserByIdUseCase {
 
     private final UserRepository userRepository;
 
-    public FindByIdUseCase(UserRepository userRepository) {
+    public FindUserByIdUseCase(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

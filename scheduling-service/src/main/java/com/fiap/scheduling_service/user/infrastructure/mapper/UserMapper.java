@@ -1,7 +1,7 @@
-package user.infrastructure.mapper;
+package com.fiap.scheduling_service.user.infrastructure.mapper;
 
-import user.domain.entity.User;
-import user.infrastructure.persistence.UserJpaEntity;
+import com.fiap.scheduling_service.user.domain.entity.User;
+import com.fiap.scheduling_service.user.infrastructure.persistence.UserJpaEntity;
 
 public class UserMapper {
     public static UserJpaEntity toJpaEntity(User user){

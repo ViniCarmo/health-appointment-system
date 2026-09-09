@@ -1,6 +1,6 @@
-package user.Application.useCases;
+package com.fiap.scheduling_service.user.Application.usecase;
 
-import user.domain.repository.UserRepository;
+import com.fiap.scheduling_service.user.domain.repository.UserRepository;
 
 import java.util.UUID;
 

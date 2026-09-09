@@ -1,6 +1,6 @@
-package user.domain.repository;
+package com.fiap.scheduling_service.user.domain.repository;
 
-import user.domain.entity.User;
+import com.fiap.scheduling_service.user.domain.entity.User;
 
 import java.util.Optional;
 import java.util.UUID;
