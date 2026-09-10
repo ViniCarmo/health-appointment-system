@@ -12,10 +12,10 @@ public class CreateUserUseCase {
         this.userRepository = userRepository;
     }
 
-    public void execute(String email, String passwordHash, Role role, String name, String phoneNumber) {
+    public User execute(String email, String passwordHash, Role role, String name, String phoneNumber) {
         if (userRepository.findByEmail(email).isPresent()) {
             throw new IllegalArgumentException("User with email " + email + " already exists.");
         }
-        userRepository.save(User.create(email, passwordHash, role, name, phoneNumber));
+        return userRepository.save(User.create(email, passwordHash, role, name, phoneNumber));
     }
 }
