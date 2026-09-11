@@ -9,7 +9,6 @@ import java.util.UUID;
 public interface AppointmentRepository {
     Appointment save(Appointment appointment);
     Optional<Appointment> findById(UUID id);
-    Optional<Appointment> findByEmail(String email);
     void deleteById(UUID id);
     List<Appointment> findByPatientId(UUID patientId);
     List<Appointment> findAll();
