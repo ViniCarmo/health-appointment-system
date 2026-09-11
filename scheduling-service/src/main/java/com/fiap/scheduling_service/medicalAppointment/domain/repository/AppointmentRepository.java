@@ -2,6 +2,7 @@ package com.fiap.scheduling_service.medicalAppointment.domain.repository;
 
 import com.fiap.scheduling_service.medicalAppointment.domain.entity.Appointment;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -10,5 +11,7 @@ public interface AppointmentRepository {
     Optional<Appointment> findById(UUID id);
     Optional<Appointment> findByEmail(String email);
     void deleteById(UUID id);
+    List<Appointment> findByPatientId(UUID patientId);
+    List<Appointment> findAll();
 
 }
