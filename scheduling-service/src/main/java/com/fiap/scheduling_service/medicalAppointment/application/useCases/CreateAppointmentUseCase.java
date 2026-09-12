@@ -26,7 +26,9 @@ public class CreateAppointmentUseCase {
         }
 
         Appointment appointment = Appointment.create(patientId, doctorId, dateTime, notes, createdByUserId);
+        AppointmentDetails details = detailsAssembler.assemble(appointment);
+
         Appointment saved = appointmentRepository.save(appointment);
-        return detailsAssembler.assemble(saved);
+        return new AppointmentDetails(saved, details.patientName(), details.doctorName());
     }
 }
