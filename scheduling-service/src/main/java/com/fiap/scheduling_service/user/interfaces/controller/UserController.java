@@ -4,6 +4,7 @@ import com.fiap.scheduling_service.user.Application.usecase.*;
 import com.fiap.scheduling_service.user.interfaces.dto.request.UpdatePasswordRequestDto;
 import com.fiap.scheduling_service.user.interfaces.dto.request.UserRequestDto;
 import com.fiap.scheduling_service.user.interfaces.dto.response.UserResponseDto;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto userRequestDto) {
+    public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody UserRequestDto userRequestDto) {
         var user = createUserUseCase.execute(userRequestDto.email(), userRequestDto.passwordHash(), userRequestDto.role(), userRequestDto.name(), userRequestDto.phoneNumber());
         return ResponseEntity.ok(UserResponseDto.from(user));
     }
@@ -55,13 +56,13 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserResponseDto> updateUser( @PathVariable UUID id, @RequestBody UserRequestDto userRequestDto) {
+    public ResponseEntity<UserResponseDto> updateUser( @PathVariable UUID id, @Valid @RequestBody UserRequestDto userRequestDto) {
         var user = updateUserContactInfoUseCase.execute(id, userRequestDto.name(), userRequestDto.phoneNumber(), userRequestDto.email());
         return ResponseEntity.ok(UserResponseDto.from(user));
     }
 
     @PutMapping(("/{id}/password"))
-    public ResponseEntity<Void> updatePassword(@PathVariable UUID id, @RequestBody UpdatePasswordRequestDto request) {
+    public ResponseEntity<Void> updatePassword(@PathVariable UUID id, @Valid @RequestBody UpdatePasswordRequestDto request) {
         updatePasswordUseCase.execute(id, request.newPassword());
         return ResponseEntity.ok().build();
     }
