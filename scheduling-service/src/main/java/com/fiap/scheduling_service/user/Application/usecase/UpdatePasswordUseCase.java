@@ -1,7 +1,9 @@
 package com.fiap.scheduling_service.user.Application.usecase;
 
+import com.fiap.scheduling_service.user.domain.entity.User;
 import com.fiap.scheduling_service.user.domain.repository.UserRepository;
 
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 public class UpdatePasswordUseCase {
@@ -13,8 +15,9 @@ public class UpdatePasswordUseCase {
     }
 
     public void execute(UUID id, String newPasswordHash){
-        userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + id))
-                .updatePassword(newPasswordHash);
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("User not found with id: " + id));
+        user.updatePassword(newPasswordHash);
+        userRepository.save(user);
     }
 }
