@@ -3,6 +3,8 @@ package com.fiap.scheduling_service.user.Application.usecase;
 import com.fiap.scheduling_service.user.domain.entity.User;
 import com.fiap.scheduling_service.user.domain.repository.UserRepository;
 
+import java.util.NoSuchElementException;
+
 public class FindUserByEmailUseCase {
 
     private final UserRepository userRepository;
@@ -13,6 +15,6 @@ public class FindUserByEmailUseCase {
 
     public User execute(String email){
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+                .orElseThrow(() -> new NoSuchElementException("User not found with email: " + email));
     }
 }
