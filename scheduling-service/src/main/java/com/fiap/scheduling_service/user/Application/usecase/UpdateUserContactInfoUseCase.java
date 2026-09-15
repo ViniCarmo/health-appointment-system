@@ -14,7 +14,11 @@ public class UpdateUserContactInfoUseCase {
         this.userRepository = userRepository;
     }
 
-    public User execute(UUID id, String name, String phoneNumber, String email){
+    public User execute(UUID id, String name, String phoneNumber, String email, UUID requestingUserId, boolean isPatientRole){
+        if (isPatientRole && !id.equals(requestingUserId)) {
+            throw new SecurityException("Patients can only update their own account");
+        }
+
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("User not found with id: " + id));
         user.updateContactInfo(name, phoneNumber, email);
