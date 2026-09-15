@@ -15,6 +15,10 @@ public class UserDetailsImpl implements UserDetails {
         this.user = user;
     }
 
+    public User getDomainUser() {
+        return user;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(() -> "ROLE_" + user.getRole().name());
