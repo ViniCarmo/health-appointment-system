@@ -1,0 +1,530 @@
+{
+  "info": {
+    "_postman_id": "a31ad3fc-c300-4eaa-8d93-8a99154d5559",
+    "name": "HealthAppointment",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "31926803"
+  },
+  "item": [
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"patient@hospital.com\",\r\n  \"passwordHash\": \"senha123\",\r\n  \"role\": \"PATIENT\",\r\n  \"name\": \"Carlos Pereira\",\r\n  \"phoneNumber\": \"11999990002\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/users",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get User By Id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJudXJzZUBob3NwaXRhbC5jb20iLCJ1c2VySWQiOiI1NTE2NTQzZi0xZTkwLTRmZjUtODBmNS1jNmQ4MjEzMzQxOTQiLCJ1c2VyVHlwZSI6Ik5VUlNFIiwiaWF0IjoxNzg5NTA5MzMxLCJleHAiOjE3ODk1MTI5MzF9.dA3ZmAs817ZVfhIHFA_q4ziiy-F0dx1HQxAHrd0JoBwFV4Lvs_U1k9dLxxQ94KOE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/v1/users/087b1cba-6d1a-44fb-9aad-1bb4935c33e3",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "087b1cba-6d1a-44fb-9aad-1bb4935c33e3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get User By Email",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJudXJzZUBob3NwaXRhbC5jb20iLCJ1c2VySWQiOiI1NTE2NTQzZi0xZTkwLTRmZjUtODBmNS1jNmQ4MjEzMzQxOTQiLCJ1c2VyVHlwZSI6Ik5VUlNFIiwiaWF0IjoxNzg5NTA5OTAzLCJleHAiOjE3ODk1MTM1MDN9.CPcOo2FPHz3vLL8vARmqyvJWOWdWUdsHNNgBlG09qt25f1ltho1Ujw7WyiKyN9Zu",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/v1/users/email?email=patient@hospital.com",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "email"
+              ],
+              "query": [
+                {
+                  "key": "email",
+                  "value": "patient@hospital.com"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update user contact info",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJudXJzZUBob3NwaXRhbC5jb20iLCJ1c2VySWQiOiI1NTE2NTQzZi0xZTkwLTRmZjUtODBmNS1jNmQ4MjEzMzQxOTQiLCJ1c2VyVHlwZSI6Ik5VUlNFIiwiaWF0IjoxNzg5NTA5OTAzLCJleHAiOjE3ODk1MTM1MDN9.CPcOo2FPHz3vLL8vARmqyvJWOWdWUdsHNNgBlG09qt25f1ltho1Ujw7WyiKyN9Zu",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Carlos Pereira Silva\",\r\n  \"phoneNumber\": \"11999998888\",\r\n  \"email\": \"patient@hospital.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/users/087b1cba-6d1a-44fb-9aad-1bb4935c33e3",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "087b1cba-6d1a-44fb-9aad-1bb4935c33e3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Password",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJudXJzZUBob3NwaXRhbC5jb20iLCJ1c2VySWQiOiI1NTE2NTQzZi0xZTkwLTRmZjUtODBmNS1jNmQ4MjEzMzQxOTQiLCJ1c2VyVHlwZSI6Ik5VUlNFIiwiaWF0IjoxNzg5NTA5OTAzLCJleHAiOjE3ODk1MTM1MDN9.CPcOo2FPHz3vLL8vARmqyvJWOWdWUdsHNNgBlG09qt25f1ltho1Ujw7WyiKyN9Zu",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"newPassword\": \"novaSenha456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/users/087b1cba-6d1a-44fb-9aad-1bb4935c33e3/password",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "087b1cba-6d1a-44fb-9aad-1bb4935c33e3",
+                "password"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Appointment",
+      "item": [
+        {
+          "name": "Create Appointment",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJudXJzZUBob3NwaXRhbC5jb20iLCJ1c2VySWQiOiI1NTE2NTQzZi0xZTkwLTRmZjUtODBmNS1jNmQ4MjEzMzQxOTQiLCJ1c2VyVHlwZSI6Ik5VUlNFIiwiaWF0IjoxNzg5NDkxNDIxLCJleHAiOjE3ODk0OTUwMjF9.Y4eJbKamqzorQirKCNxKuFvGU0JR-hM_hZ588i9cxkljF7Z4SgqeD6HEPcd_1_qM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"patientId\": \"087b1cba-6d1a-44fb-9aad-1bb4935c33e3\",\r\n  \"doctorId\": \"554030e9-6994-4b2b-990d-e96782a0dfb9\",\r\n  \"dateTime\": \"2026-12-01T10:00:00\",\r\n  \"notes\": \"Consulta de rotina\",\r\n  \"createdByUserId\": \"5516543f-1e90-4ff5-80f5-c6d821334194\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/appointments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "appointments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Appointment by id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJwYXRpZW50QGhvc3BpdGFsLmNvbSIsInVzZXJJZCI6IjA4N2IxY2JhLTZkMWEtNDRmYi05YWFkLTFiYjQ5MzVjMzNlMyIsInVzZXJUeXBlIjoiUEFUSUVOVCIsImlhdCI6MTc4OTQ5NjM2MiwiZXhwIjoxNzg5NDk5OTYyfQ.8t4DuAfOPvXHgdIKAsbC2SYa7cZbDAm6CNAK0Nj4lfF7vxdd1r91-0k2UmZ5QVkN",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/v1/appointments/1fd599d8-097e-4b03-af9c-2fffc34ffe75",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "appointments",
+                "1fd599d8-097e-4b03-af9c-2fffc34ffe75"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Appointments",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJudXJzZUBob3NwaXRhbC5jb20iLCJ1c2VySWQiOiI1NTE2NTQzZi0xZTkwLTRmZjUtODBmNS1jNmQ4MjEzMzQxOTQiLCJ1c2VyVHlwZSI6Ik5VUlNFIiwiaWF0IjoxNzg5NTA5OTAzLCJleHAiOjE3ODk1MTM1MDN9.CPcOo2FPHz3vLL8vARmqyvJWOWdWUdsHNNgBlG09qt25f1ltho1Ujw7WyiKyN9Zu",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/v1/appointments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "appointments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "EditAppointment",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJkb2N0b3JAaG9zcGl0YWwuY29tIiwidXNlcklkIjoiNTU0MDMwZTktNjk5NC00YjJiLTk5MGQtZTk2NzgyYTBkZmI5IiwidXNlclR5cGUiOiJET0NUT1IiLCJpYXQiOjE3ODk0OTQ4NjcsImV4cCI6MTc4OTQ5ODQ2N30.4DT8RUDDkhdR8OQFbVJiq36_xa5Vctv0qAJkGkK9wmMVyuUb49bFAwVJoXl09XKQ",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"dateTime\": \"2026-12-01T14:00:00\",\r\n  \"notes\": \"Reagendado\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/appointments/ccd6d20f-8cac-46c0-af5a-6bbb6027cea1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "appointments",
+                "ccd6d20f-8cac-46c0-af5a-6bbb6027cea1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CompleteAppointment",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJudXJzZUBob3NwaXRhbC5jb20iLCJ1c2VySWQiOiI1NTE2NTQzZi0xZTkwLTRmZjUtODBmNS1jNmQ4MjEzMzQxOTQiLCJ1c2VyVHlwZSI6Ik5VUlNFIiwiaWF0IjoxNzg5NTA5OTAzLCJleHAiOjE3ODk1MTM1MDN9.CPcOo2FPHz3vLL8vARmqyvJWOWdWUdsHNNgBlG09qt25f1ltho1Ujw7WyiKyN9Zu",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/v1/appointments/1fd599d8-097e-4b03-af9c-2fffc34ffe75/complete",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "appointments",
+                "1fd599d8-097e-4b03-af9c-2fffc34ffe75",
+                "complete"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel Appointment",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJudXJzZUBob3NwaXRhbC5jb20iLCJ1c2VySWQiOiI1NTE2NTQzZi0xZTkwLTRmZjUtODBmNS1jNmQ4MjEzMzQxOTQiLCJ1c2VyVHlwZSI6Ik5VUlNFIiwiaWF0IjoxNzg5NTA5OTAzLCJleHAiOjE3ODk1MTM1MDN9.CPcOo2FPHz3vLL8vARmqyvJWOWdWUdsHNNgBlG09qt25f1ltho1Ujw7WyiKyN9Zu",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/v1/appointments/79411df5-59a3-4d4b-941b-5fed8c8b38b9/cancel",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "appointments",
+                "79411df5-59a3-4d4b-941b-5fed8c8b38b9",
+                "cancel"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"nurse@hospital.com\",\r\n  \"password\": \"senha123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "GraphQL",
+      "item": [
+        {
+          "name": "Upcoming Appointments by Patient",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJwYXRpZW50QGhvc3BpdGFsLmNvbSIsInVzZXJJZCI6IjA4N2IxY2JhLTZkMWEtNDRmYi05YWFkLTFiYjQ5MzVjMzNlMyIsInVzZXJUeXBlIjoiUEFUSUVOVCIsImlhdCI6MTc4OTUwNTQ0NywiZXhwIjoxNzg5NTA5MDQ3fQ.EbGKpk0bmwS6luDeXYnVva0asd6IGXK4fOL1jGoSAuKtd9ht7r2wXgYrbQ8Ug7Eb",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "/*{\r\n  \"query\": \"query { appointmentsByPatient(patientId: \\\"087b1cba-6d1a-44fb-9aad-1bb4935c33e3\\\") { id patientName doctorName dateTime status notes } }\"\r\n}*/\r\n\r\n{\r\n  \"query\": \"query { upcomingAppointmentsByPatient(patientId: \\\"087b1cba-6d1a-44fb-9aad-1bb4935c33e3\\\") { id dateTime status } }\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/graphql",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "graphql"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Appointments by Patient (full history)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJwYXRpZW50QGhvc3BpdGFsLmNvbSIsInVzZXJJZCI6IjA4N2IxY2JhLTZkMWEtNDRmYi05YWFkLTFiYjQ5MzVjMzNlMyIsInVzZXJUeXBlIjoiUEFUSUVOVCIsImlhdCI6MTc4OTUwNTQ0NywiZXhwIjoxNzg5NTA5MDQ3fQ.EbGKpk0bmwS6luDeXYnVva0asd6IGXK4fOL1jGoSAuKtd9ht7r2wXgYrbQ8Ug7Eb",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"query\": \"query { appointmentsByPatient(patientId: \\\"087b1cba-6d1a-44fb-9aad-1bb4935c33e3\\\") { id patientName doctorName dateTime status notes } }\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/graphql",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "graphql"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
