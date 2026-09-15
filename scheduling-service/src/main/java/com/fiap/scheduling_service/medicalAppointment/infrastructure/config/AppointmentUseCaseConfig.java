@@ -44,4 +44,9 @@ public class AppointmentUseCaseConfig {
     public ListAppointmentsUseCase listAppointmentsUseCase(AppointmentRepository appointmentRepository, UserRepository userRepository) {
         return new ListAppointmentsUseCase(appointmentRepository, userRepository);
     }
+
+    @Bean
+    public ListAppointmentsByPatientUseCase listAppointmentsByPatientUseCase(AppointmentRepository appointmentRepository, UserRepository userRepository) {
+        return new ListAppointmentsByPatientUseCase(appointmentRepository, userRepository);
+    }
 }
