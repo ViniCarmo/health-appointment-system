@@ -73,6 +73,7 @@ public class SecurityConfig {
                         .hasAnyRole("DOCTOR", "NURSE", "PATIENT")
                         .requestMatchers("/api/v1/users/**")
                         .hasAnyRole("DOCTOR", "NURSE", "PATIENT")
+                        .requestMatchers("/graphql").hasAnyRole("DOCTOR", "NURSE", "PATIENT")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
