@@ -1,6 +1,7 @@
 package com.fiap.scheduling_service.medicalAppointment.infrastructure.config;
 
 import com.fiap.scheduling_service.medicalAppointment.application.useCases.*;
+import com.fiap.scheduling_service.medicalAppointment.domain.event.AppointmentEventPublisher;
 import com.fiap.scheduling_service.medicalAppointment.domain.repository.AppointmentRepository;
 import com.fiap.scheduling_service.user.domain.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
@@ -11,13 +12,17 @@ public class AppointmentUseCaseConfig {
 
 
     @Bean
-    public CreateAppointmentUseCase createAppointmentUseCase(AppointmentRepository appointmentRepository, UserRepository userRepository) {
-        return new CreateAppointmentUseCase(appointmentRepository, userRepository);
+    public CreateAppointmentUseCase createAppointmentUseCase(AppointmentRepository appointmentRepository,
+                                                             UserRepository userRepository,
+                                                             AppointmentEventPublisher eventPublisher) {
+        return new CreateAppointmentUseCase(appointmentRepository, userRepository, eventPublisher);
     }
 
     @Bean
-    public EditAppointmentUseCase editAppointmentUseCase(AppointmentRepository appointmentRepository, UserRepository userRepository) {
-        return new EditAppointmentUseCase(appointmentRepository, userRepository);
+    public EditAppointmentUseCase editAppointmentUseCase(AppointmentRepository appointmentRepository,
+                                                         UserRepository userRepository,
+                                                         AppointmentEventPublisher eventPublisher) {
+        return new EditAppointmentUseCase(appointmentRepository, userRepository, eventPublisher);
     }
 
     @Bean
