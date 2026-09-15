@@ -4,6 +4,7 @@ import com.fiap.scheduling_service.user.domain.repository.UserRepository;
 import com.fiap.scheduling_service.user.infrastructure.security.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -50,13 +51,25 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, SecurityFilter securityFilter) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http,
+                                            SecurityFilter securityFilter,
+                                            RestAuthenticationEntryPoint authenticationEntryPoint,
+                                            RestAccessDeniedHandler accessDeniedHandler) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(authenticationEntryPoint)
+                        .accessDeniedHandler(accessDeniedHandler)
+                )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**").permitAll()
-                        .requestMatchers("/api/v1/appointments/**")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/appointments").hasRole("NURSE")
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/appointments/*").hasRole("DOCTOR")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/appointments/*/cancel").hasRole("DOCTOR")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/appointments/*/complete").hasRole("DOCTOR")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/appointments/**")
                         .hasAnyRole("DOCTOR", "NURSE", "PATIENT")
                         .requestMatchers("/api/v1/users/**")
                         .hasAnyRole("DOCTOR", "NURSE", "PATIENT")
