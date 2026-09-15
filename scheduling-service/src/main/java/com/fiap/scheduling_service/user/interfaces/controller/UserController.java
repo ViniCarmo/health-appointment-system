@@ -1,5 +1,6 @@
 package com.fiap.scheduling_service.user.interfaces.controller;
 
+import com.fiap.scheduling_service.shared.security.AuthenticatedUserProvider;
 import com.fiap.scheduling_service.user.Application.usecase.*;
 import com.fiap.scheduling_service.user.interfaces.dto.request.UpdatePasswordRequestDto;
 import com.fiap.scheduling_service.user.interfaces.dto.request.UserRequestDto;
@@ -20,15 +21,17 @@ public class UserController {
     private final FindUserByIdUseCase findUserByIdUseCase;
     private final UpdatePasswordUseCase updatePasswordUseCase;
     private final UpdateUserContactInfoUseCase updateUserContactInfoUseCase;
+    private final AuthenticatedUserProvider authenticatedUserProvider;
 
 
-    public UserController(CreateUserUseCase createUserUseCase, DeleteUserUseCase deleteUserUseCase, FindUserByEmailUseCase findUserByEmailUseCase, FindUserByIdUseCase findUserByIdUseCase, UpdatePasswordUseCase updatePasswordUseCase, UpdateUserContactInfoUseCase updateUserContactInfoUseCase) {
+    public UserController(CreateUserUseCase createUserUseCase, DeleteUserUseCase deleteUserUseCase, FindUserByEmailUseCase findUserByEmailUseCase, FindUserByIdUseCase findUserByIdUseCase, UpdatePasswordUseCase updatePasswordUseCase, UpdateUserContactInfoUseCase updateUserContactInfoUseCase, AuthenticatedUserProvider authenticatedUserProvider) {
         this.createUserUseCase = createUserUseCase;
         this.deleteUserUseCase = deleteUserUseCase;
         this.findUserByEmailUseCase = findUserByEmailUseCase;
         this.findUserByIdUseCase = findUserByIdUseCase;
         this.updatePasswordUseCase = updatePasswordUseCase;
         this.updateUserContactInfoUseCase = updateUserContactInfoUseCase;
+        this.authenticatedUserProvider = authenticatedUserProvider;
     }
 
     @PostMapping
@@ -57,13 +60,15 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity<UserResponseDto> updateUser( @PathVariable UUID id, @Valid @RequestBody UserRequestDto userRequestDto) {
-        var user = updateUserContactInfoUseCase.execute(id, userRequestDto.name(), userRequestDto.phoneNumber(), userRequestDto.email());
+        var user = updateUserContactInfoUseCase.execute(id, userRequestDto.name(), userRequestDto.phoneNumber(), userRequestDto.email(),
+                authenticatedUserProvider.getLoggedUserId(), authenticatedUserProvider.isPatientRole());
         return ResponseEntity.ok(UserResponseDto.from(user));
     }
 
     @PutMapping(("/{id}/password"))
     public ResponseEntity<Void> updatePassword(@PathVariable UUID id, @Valid @RequestBody UpdatePasswordRequestDto request) {
-        updatePasswordUseCase.execute(id, request.newPassword());
+        updatePasswordUseCase.execute(id, request.newPassword(),
+                authenticatedUserProvider.getLoggedUserId(), authenticatedUserProvider.isPatientRole());
         return ResponseEntity.ok().build();
     }
 }
