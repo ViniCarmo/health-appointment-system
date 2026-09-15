@@ -17,6 +17,14 @@ class AppointmentDetailsAssembler {
     AppointmentDetails assemble(Appointment appointment) {
         User patient = findUser(appointment.getPatientId(), "Patient");
         User doctor = findUser(appointment.getDoctorId(), "Doctor");
+
+        if (!patient.isPatient()) {
+            throw new IllegalArgumentException("User " + patient.getId() + " does not have the PATIENT role");
+        }
+        if (!doctor.isDoctor()) {
+            throw new IllegalArgumentException("User " + doctor.getId() + " does not have the DOCTOR role");
+        }
+
         return new AppointmentDetails(appointment, patient.getName(), doctor.getName());
     }
 
