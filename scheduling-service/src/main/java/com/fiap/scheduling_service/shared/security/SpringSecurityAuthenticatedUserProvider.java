@@ -8,13 +8,21 @@ import java.util.UUID;
 
 @Component
 public class SpringSecurityAuthenticatedUserProvider implements AuthenticatedUserProvider{
+
     @Override
     public UUID getLoggedUserId() {
-        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder
+        return getLoggedUserDetails().getDomainUser().getId();
+    }
+
+    @Override
+    public boolean isPatientRole() {
+        return getLoggedUserDetails().getDomainUser().isPatient();
+    }
+
+    private UserDetailsImpl getLoggedUserDetails() {
+        return (UserDetailsImpl) SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getPrincipal();
-
-        return userDetails.getDomainUser().getId();
     }
 }

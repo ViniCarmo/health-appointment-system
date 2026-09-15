@@ -4,6 +4,7 @@ import com.fiap.scheduling_service.medicalAppointment.application.useCases.*;
 import com.fiap.scheduling_service.medicalAppointment.interfaces.dto.request.AppointmentEditRequestDto;
 import com.fiap.scheduling_service.medicalAppointment.interfaces.dto.request.AppointmentRequestDto;
 import com.fiap.scheduling_service.medicalAppointment.interfaces.dto.response.AppointmentResponseDto;
+import com.fiap.scheduling_service.shared.security.AuthenticatedUserProvider;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,19 +23,22 @@ public class AppointmentController {
     private final EditAppointmentUseCase editAppointmentUseCase;
     private final GetAppointmentByIdUseCase getAppointmentByIdUseCase;
     private final ListAppointmentsUseCase listAppointmentsUseCase;
+    private final AuthenticatedUserProvider authenticatedUserProvider;
 
     public AppointmentController(CancelAppointmentUseCase cancelAppointmentUseCase,
                                   CompleteAppointmentUseCase completeAppointmentUseCase,
                                   CreateAppointmentUseCase createAppointmentUseCase,
                                   EditAppointmentUseCase editAppointmentUseCase,
                                   GetAppointmentByIdUseCase getAppointmentByIdUseCase,
-                                  ListAppointmentsUseCase listAppointmentsUseCase) {
+                                  ListAppointmentsUseCase listAppointmentsUseCase,
+                                  AuthenticatedUserProvider authenticatedUserProvider) {
         this.cancelAppointmentUseCase = cancelAppointmentUseCase;
         this.completeAppointmentUseCase = completeAppointmentUseCase;
         this.createAppointmentUseCase = createAppointmentUseCase;
         this.editAppointmentUseCase = editAppointmentUseCase;
         this.getAppointmentByIdUseCase = getAppointmentByIdUseCase;
         this.listAppointmentsUseCase = listAppointmentsUseCase;
+        this.authenticatedUserProvider = authenticatedUserProvider;
     }
 
     @PostMapping
@@ -44,22 +48,17 @@ public class AppointmentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(AppointmentResponseDto.from(details));
     }
 
-    // TODO: requestingUserId/isPatientRole via query param sao temporarios ate o SecurityConfig
-    // extrair essas informacoes do usuario autenticado.
     @GetMapping("/{id}")
-    public ResponseEntity<AppointmentResponseDto> getById(@PathVariable UUID id,
-                                                            @RequestParam UUID requestingUserId,
-                                                            @RequestParam(defaultValue = "false") boolean isPatientRole) {
-        AppointmentDetails details = getAppointmentByIdUseCase.execute(id, requestingUserId, isPatientRole);
+    public ResponseEntity<AppointmentResponseDto> getById(@PathVariable UUID id) {
+        AppointmentDetails details = getAppointmentByIdUseCase.execute(
+                id, authenticatedUserProvider.getLoggedUserId(), authenticatedUserProvider.isPatientRole());
         return ResponseEntity.ok(AppointmentResponseDto.from(details));
     }
 
-    // TODO: requestingUserId/isPatientRole via query param sao temporarios ate o SecurityConfig
-    // extrair essas informacoes do usuario autenticado.
     @GetMapping
-    public ResponseEntity<List<AppointmentResponseDto>> list(@RequestParam UUID requestingUserId,
-                                                               @RequestParam(defaultValue = "false") boolean isPatientRole) {
-        List<AppointmentResponseDto> response = listAppointmentsUseCase.execute(requestingUserId, isPatientRole)
+    public ResponseEntity<List<AppointmentResponseDto>> list() {
+        List<AppointmentResponseDto> response = listAppointmentsUseCase.execute(
+                        authenticatedUserProvider.getLoggedUserId(), authenticatedUserProvider.isPatientRole())
                 .stream()
                 .map(AppointmentResponseDto::from)
                 .collect(Collectors.toList());
