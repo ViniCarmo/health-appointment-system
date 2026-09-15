@@ -13,7 +13,11 @@ public class DeleteUserUseCase {
         this.userRepository = userRepository;
     }
 
-    public void execute(UUID id){
+    public void execute(UUID id, UUID requestingUserId, boolean isPatientRole){
+        if (isPatientRole && !id.equals(requestingUserId)) {
+            throw new SecurityException("Patients can only delete their own account");
+        }
+
         if (userRepository.findById(id).isEmpty()) {
             throw new NoSuchElementException("User not found with id: " + id);
         }

@@ -54,7 +54,8 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUserById(@PathVariable UUID id) {
-        deleteUserUseCase.execute(id);
+        deleteUserUseCase.execute(id,
+                authenticatedUserProvider.getLoggedUserId(), authenticatedUserProvider.isPatientRole());
         return ResponseEntity.noContent().build();
     }
 
