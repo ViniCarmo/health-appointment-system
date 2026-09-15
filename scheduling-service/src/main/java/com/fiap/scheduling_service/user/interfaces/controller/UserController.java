@@ -4,6 +4,7 @@ import com.fiap.scheduling_service.shared.security.AuthenticatedUserProvider;
 import com.fiap.scheduling_service.user.Application.usecase.*;
 import com.fiap.scheduling_service.user.interfaces.dto.request.UpdatePasswordRequestDto;
 import com.fiap.scheduling_service.user.interfaces.dto.request.UserRequestDto;
+import com.fiap.scheduling_service.user.interfaces.dto.request.UserUpdateRequestDto;
 import com.fiap.scheduling_service.user.interfaces.dto.response.UserResponseDto;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -60,8 +61,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserResponseDto> updateUser( @PathVariable UUID id, @Valid @RequestBody UserRequestDto userRequestDto) {
-        var user = updateUserContactInfoUseCase.execute(id, userRequestDto.name(), userRequestDto.phoneNumber(), userRequestDto.email(),
+    public ResponseEntity<UserResponseDto> updateUser( @PathVariable UUID id, @Valid @RequestBody UserUpdateRequestDto userUpdateRequestDto) {
+        var user = updateUserContactInfoUseCase.execute(id, userUpdateRequestDto.name(), userUpdateRequestDto.phoneNumber(), userUpdateRequestDto.email(),
                 authenticatedUserProvider.getLoggedUserId(), authenticatedUserProvider.isPatientRole());
         return ResponseEntity.ok(UserResponseDto.from(user));
     }
