@@ -13,7 +13,7 @@ public class CreateUserUseCase {
     }
 
     public User execute(String email, String passwordHash, Role role, String name, String phoneNumber) {
-        if (userRepository.findByEmail(email).isPresent()) {
+        if (userRepository.findByEmailIgnoreCase(email).isPresent()) {
             throw new IllegalArgumentException("User with email " + email + " already exists.");
         }
         return userRepository.save(User.create(email, passwordHash, role, name, phoneNumber));
