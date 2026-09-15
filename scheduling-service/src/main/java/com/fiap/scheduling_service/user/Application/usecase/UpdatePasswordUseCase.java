@@ -17,7 +17,11 @@ public class UpdatePasswordUseCase {
         this.passwordEncoderService = passwordEncoderService;
     }
 
-    public void execute(UUID id, String newRawPassword){
+    public void execute(UUID id, String newRawPassword, UUID requestingUserId, boolean isPatientRole){
+        if (isPatientRole && !id.equals(requestingUserId)) {
+            throw new SecurityException("Patients can only update their own account");
+        }
+
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("User not found with id: " + id));
         user.updatePassword(passwordEncoderService.encode(newRawPassword));
