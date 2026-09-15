@@ -14,7 +14,7 @@ public class FindUserByEmailUseCase {
     }
 
     public User execute(String email){
-        return userRepository.findByEmail(email)
+        return userRepository.findByEmailIgnoreCase(email)
                 .orElseThrow(() -> new NoSuchElementException("User not found with email: " + email));
     }
 }

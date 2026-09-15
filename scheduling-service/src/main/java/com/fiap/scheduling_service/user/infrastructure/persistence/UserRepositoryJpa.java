@@ -30,8 +30,8 @@ public class UserRepositoryJpa implements UserRepository {
     }
 
     @Override
-    public Optional<User> findByEmail(String email) {
-        return userJpaRepository.findByEmail(email).map(UserMapper::toDomainEntity);
+    public Optional<User> findByEmailIgnoreCase(String email) {
+        return userJpaRepository.findByEmailIgnoreCase(email).map(UserMapper::toDomainEntity);
     }
 
     @Override
