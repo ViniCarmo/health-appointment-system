@@ -56,6 +56,11 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.CONFLICT, "Request violates a data integrity constraint (e.g. duplicate value)");
     }
 
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<Map<String, Object>> handleStateConflict(IllegalStateException ex) {
+        return build(HttpStatus.CONFLICT, ex.getMessage());
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidation(MethodArgumentNotValidException ex) {
         String message = ex.getBindingResult().getFieldErrors().stream()

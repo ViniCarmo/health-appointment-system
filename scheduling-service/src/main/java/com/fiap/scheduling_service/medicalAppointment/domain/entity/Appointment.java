@@ -34,16 +34,25 @@ public class Appointment {
     }
 
     public void cancel() {
+        if (this.status != AppointmentStatus.SCHEDULED) {
+            throw new IllegalStateException("Cannot cancel an appointment with status " + this.status);
+        }
         this.status = AppointmentStatus.CANCELLED;
         this.updatedAt = LocalDateTime.now();
     }
 
     public void complete() {
+        if (this.status != AppointmentStatus.SCHEDULED) {
+            throw new IllegalStateException("Cannot complete an appointment with status " + this.status);
+        }
         this.status = AppointmentStatus.COMPLETED;
         this.updatedAt = LocalDateTime.now();
     }
 
     public void reschedule(LocalDateTime newDateTime) {
+        if (this.status != AppointmentStatus.SCHEDULED) {
+            throw new IllegalStateException("Cannot reschedule an appointment with status " + this.status);
+        }
         this.dateTime = newDateTime;
         this.updatedAt = LocalDateTime.now();
     }
