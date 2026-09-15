@@ -19,7 +19,6 @@ import java.util.UUID;
 public class AppointmentJpaEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(name = "patient_id", nullable = false)

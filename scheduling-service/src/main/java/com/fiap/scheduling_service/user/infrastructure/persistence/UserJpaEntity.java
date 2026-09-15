@@ -18,7 +18,6 @@ import java.util.UUID;
 @Table(name = "users")
 public class UserJpaEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @Column(name = "name", nullable = false)
     private String name;
