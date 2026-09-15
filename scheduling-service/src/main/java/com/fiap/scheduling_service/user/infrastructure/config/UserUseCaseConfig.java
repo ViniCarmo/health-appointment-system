@@ -1,6 +1,7 @@
 package com.fiap.scheduling_service.user.infrastructure.config;
 
 import com.fiap.scheduling_service.user.Application.usecase.*;
+import com.fiap.scheduling_service.user.domain.PasswordEncoderService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import com.fiap.scheduling_service.user.domain.repository.UserRepository;
@@ -8,8 +9,8 @@ import com.fiap.scheduling_service.user.domain.repository.UserRepository;
 @Configuration
 public class UserUseCaseConfig {
     @Bean
-    public CreateUserUseCase createUserUseCase(UserRepository userRepository) {
-        return new CreateUserUseCase(userRepository);
+    public CreateUserUseCase createUserUseCase(UserRepository userRepository, PasswordEncoderService passwordEncoderService) {
+        return new CreateUserUseCase(userRepository, passwordEncoderService);
     }
 
     @Bean
@@ -33,8 +34,8 @@ public class UserUseCaseConfig {
     }
 
     @Bean
-    public UpdatePasswordUseCase updatePasswordUseCase(UserRepository userRepository) {
-        return new UpdatePasswordUseCase(userRepository);
+    public UpdatePasswordUseCase updatePasswordUseCase(UserRepository userRepository, PasswordEncoderService passwordEncoderService) {
+        return new UpdatePasswordUseCase(userRepository, passwordEncoderService);
     }
 
 }
