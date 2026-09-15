@@ -1,6 +1,9 @@
 package com.fiap.scheduling_service.medicalAppointment.application.useCases;
 
 import com.fiap.scheduling_service.medicalAppointment.domain.entity.Appointment;
+import com.fiap.scheduling_service.medicalAppointment.domain.event.AppointmentEvent;
+import com.fiap.scheduling_service.medicalAppointment.domain.event.AppointmentEventPublisher;
+import com.fiap.scheduling_service.medicalAppointment.domain.event.AppointmentEventType;
 import com.fiap.scheduling_service.medicalAppointment.domain.repository.AppointmentRepository;
 import com.fiap.scheduling_service.user.domain.repository.UserRepository;
 
@@ -10,10 +13,12 @@ import java.util.UUID;
 public class CreateAppointmentUseCase {
     private final AppointmentRepository appointmentRepository;
     private final AppointmentDetailsAssembler detailsAssembler;
+    private final AppointmentEventPublisher eventPublisher;
 
-    public CreateAppointmentUseCase(AppointmentRepository appointmentRepository, UserRepository userRepository) {
+    public CreateAppointmentUseCase(AppointmentRepository appointmentRepository, UserRepository userRepository, AppointmentEventPublisher eventPublisher) {
         this.appointmentRepository = appointmentRepository;
         this.detailsAssembler = new AppointmentDetailsAssembler(userRepository);
+        this.eventPublisher = eventPublisher;
     }
 
     public AppointmentDetails execute(UUID patientId, UUID doctorId, LocalDateTime dateTime, String notes, UUID createdByUserId) {
@@ -29,6 +34,17 @@ public class CreateAppointmentUseCase {
         AppointmentDetails details = detailsAssembler.assemble(appointment);
 
         Appointment saved = appointmentRepository.save(appointment);
-        return new AppointmentDetails(saved, details.patientName(), details.doctorName());
+        AppointmentDetails result = new AppointmentDetails(saved, details.patientName(), details.doctorName());
+
+        eventPublisher.publish(new AppointmentEvent(
+                AppointmentEventType.CREATED,
+                saved.getId(),
+                saved.getPatientId(),
+                details.patientName(),
+                details.doctorName(),
+                saved.getDateTime()
+        ));
+
+        return result;
     }
 }
