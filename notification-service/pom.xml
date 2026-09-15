@@ -38,6 +38,17 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
+		<!-- Spring Kafka's JsonSerializer/JsonDeserializer sao construidos sobre o Jackson 2
+		     classico, mas o Spring Boot 4 nao traz mais isso por padrao (a pilha padrao agora
+		     e o Jackson 3, em tools.jackson.core). Declaramos explicitamente. -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
